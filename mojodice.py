@@ -54,11 +54,8 @@ def run_forever():
     
         list_of_lists.insert(i,each_row)
         i = i + 1
-    k = 1
-    for lis in list_of_lists:
-        lis.append(k)
-        k = k + 1
-    worksheet.update('A2:E300000', list_of_lists)
+    
+    worksheet.update('A1:E300000', list_of_lists)
 
 while True:
     run_forever()
