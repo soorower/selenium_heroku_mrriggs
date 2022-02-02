@@ -38,10 +38,11 @@ def run_forever():
     table_rows = soup.find('table').find('tbody').findAll('tr')[1:]
 
     i = 1
-    for row in table_rows[:20]:
+    for row in table_rows[:25]:
         each_row = []
         winlose = row.findAll('td')[0].text.strip()
         gametime = row.findAll('td')[1].text.strip()
+        gametime = gametime[:-5] +' '+ gametime[12:]
         gameid = row.findAll('td')[3].text.strip()
         betamount = row.findAll('td')[6].text.strip()
         if gameid in gameid_list:
@@ -55,7 +56,7 @@ def run_forever():
         list_of_lists.insert(i,each_row)
         i = i + 1
     
-    worksheet.update('A1:E300000', list_of_lists)
+    worksheet.update('A1:D300000', list_of_lists)
 
 while True:
     run_forever()
