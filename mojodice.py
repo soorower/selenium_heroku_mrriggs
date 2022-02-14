@@ -1,5 +1,6 @@
 from time import sleep
 from selenium import webdriver
+import pandas as pd
 from bs4 import BeautifulSoup as bs
 import gspread
 from selenium.webdriver.common.by import By
@@ -55,8 +56,38 @@ def run_forever():
     
         list_of_lists.insert(i,each_row)
         i = i + 1
+    data= {}
+    lists = []
+
+    for list in list_of_lists[1:]:
+        win_lose = list[0]
+        game_time = list[1]
+        game_id = list[2]
+        game_bid = list[3]
+        data = {
+            'Win/lose': win_lose,
+            'Game Time': game_time,
+            'Game ID': game_id,
+            'Bid Amount': game_bid
+        }
+        lists.append(data)
+    df = pd.DataFrame(lists).drop_duplicates(subset=['Win/lose','Game ID'], keep='last')
+    win = df['Win/lose'].tolist()
+    gt = df['Game Time'].tolist()
+    gi = df['Game ID'].tolist()
+    gb = df['Bid Amount'].tolist()
+
+    new_list_of_lists = []
+    for w,gtime,gid,bamount in zip(win,gt,gi,gb):
+        each_lit = []
+        each_lit.append(w)
+        each_lit.append(gtime)
+        each_lit.append(gid)
+        each_lit.append(bamount)
+        new_list_of_lists.append(each_lit)
+
     
-    worksheet.update('A1:D300000', list_of_lists)
+    worksheet.update('A2:D300000', new_list_of_lists)
 
 while True:
     run_forever()
