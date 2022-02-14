@@ -60,6 +60,7 @@ def run_forever():
     lists = []
 
     for listi in list_of_lists[1:]:
+        print(listi)
         win_lose = listi[0]
         game_time = listi[1]
         game_id = listi[2]
