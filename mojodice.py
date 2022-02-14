@@ -60,18 +60,20 @@ def run_forever():
     lists = []
 
     for listi in list_of_lists[1:]:
-        print(listi)
-        win_lose = listi[0]
-        game_time = listi[1]
-        game_id = listi[2]
-        game_bid = listi[3]
-        data = {
-            'Win/lose': win_lose,
-            'Game Time': game_time,
-            'Game ID': game_id,
-            'Bid Amount': game_bid
-        }
-        lists.append(data)
+        if len(listi) == 0:
+            pass
+        else:
+            win_lose = listi[0]
+            game_time = listi[1]
+            game_id = listi[2]
+            game_bid = listi[3]
+            data = {
+                'Win/lose': win_lose,
+                'Game Time': game_time,
+                'Game ID': game_id,
+                'Bid Amount': game_bid
+            }
+            lists.append(data)
     df = pd.DataFrame(lists).drop_duplicates(subset=['Win/lose','Game ID'], keep='last')
     win = df['Win/lose'].tolist()
     gt = df['Game Time'].tolist()
