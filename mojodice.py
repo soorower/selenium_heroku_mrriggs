@@ -59,11 +59,11 @@ def run_forever():
     data= {}
     lists = []
 
-    for list in list_of_lists[1:]:
-        win_lose = list[0]
-        game_time = list[1]
-        game_id = list[2]
-        game_bid = list[3]
+    for listi in list_of_lists[1:]:
+        win_lose = listi[0]
+        game_time = listi[1]
+        game_id = listi[2]
+        game_bid = listi[3]
         data = {
             'Win/lose': win_lose,
             'Game Time': game_time,
